@@ -9,7 +9,6 @@ from .models import *
 
 
 def store(request: HttpRequest):
-    products = Product.objects.all()
     if request.user.is_authenticated:
         customer = request.user.customer
         order = Order.objects.filter(customer=customer, complete=False).first()
@@ -17,9 +16,10 @@ def store(request: HttpRequest):
             order = Order.objects.create(customer=customer, complete=False)
         cartItems = order.get_cart_items
     else:
-        order = {"get_cart_total": 0, "get_cart_items": 0}
+        order = {"get_cart_total": 0, "get_cart_items": 0, "shipping": False}
         cartItems = order["get_cart_items"]
 
+    products = Product.objects.all()
     context = {"products": products, "cartItems": cartItems}
     return render(request, "store/store.html", context)
 
@@ -34,7 +34,7 @@ def cart(request):
         cartItems = order.get_cart_items
     else:
         items = []
-        order = {"get_cart_total": 0, "get_cart_items": 0}
+        order = {"get_cart_total": 0, "get_cart_items": 0, "shipping": False}
         cartItems = order["get_cart_items"]
 
     context = {"items": items, "order": order, "cartItems": cartItems}
@@ -51,7 +51,7 @@ def checkout(request: HttpRequest):
         cartItems = order.get_cart_items
     else:
         items = []
-        order = {"get_cart_total": 0, "get_cart_items": 0}
+        order = {"get_cart_total": 0, "get_cart_items": 0, "shipping": False}
         cartItems = order["get_cart_items"]
 
     context = {"items": items, "order": order, "cartItems": cartItems}
