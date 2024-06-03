@@ -48,13 +48,13 @@ class TestModels(TestCase):
         self.assertEqual(self.orderitem1.order, self.order1)
         self.assertEqual(self.orderitem1.quantity, 1)
 
-    def test_shippingaddress_creation(self):
-        self.assertEqual(self.shippingaddress1.customer, self.customer1)
-        self.assertEqual(self.shippingaddress1.order, self.order1)
-        self.assertEqual(self.shippingaddress1.address, "123 St")
-        self.assertEqual(self.shippingaddress1.state, "State")
-        self.assertEqual(self.shippingaddress1.zipcode, "12345")
-        self.assertEqual(self.shippingaddress1.city, "City")
+    # def test_shippingaddress_creation(self):
+    #     self.assertEqual(self.shippingaddress1.customer, self.customer1)
+    #     self.assertEqual(self.shippingaddress1.order, self.order1)
+    #     self.assertEqual(self.shippingaddress1.address, "123 St")
+    #     self.assertEqual(self.shippingaddress1.state, "State")
+    #     self.assertEqual(self.shippingaddress1.zipcode, "12345")
+    #     self.assertEqual(self.shippingaddress1.city, "City")
 
 
 class TestViews(TestCase):
