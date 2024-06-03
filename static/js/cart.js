@@ -5,17 +5,14 @@ buttons.forEach((button) => {
   button.addEventListener('click', function () {
     const productId = this.dataset.product
     const action = this.dataset.action
-    console.log('productId:', productId, 'Action:', action)
 
     if (user === 'AnonymousUser') {
-      console.log('User is not authenticated')
+      addCookieItem(productId, action)
     } else {
       updateUserOrder(productId, action)
     }
   })
 })
-
-console.log('csrftoken:', csrftoken)
 
 function updateUserOrder(productId, action) {
   console.log('User is authenticated, sending data...')
@@ -35,4 +32,26 @@ function updateUserOrder(productId, action) {
       console.log('data:', data)
       location.reload()
     })
+}
+
+function addCookieItem(productId, action) {
+  if (action === 'add') {
+    if (cart[productId] === undefined) {
+      cart[productId] = { quantity: 1 }
+    } else {
+      cart[productId]['quantity'] += 1
+    }
+  }
+
+  if (action === 'remove') {
+    cart[productId]['quantity'] -= 1
+
+    if (cart[productId]['quantity'] <= 0) {
+      console.log('Item should be deleted')
+      delete cart[productId]
+    }
+  }
+
+  document.cookie = 'cart=' + JSON.stringify(cart) + ';domain=;path=/'
+  location.reload()
 }
