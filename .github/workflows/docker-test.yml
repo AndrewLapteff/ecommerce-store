@@ -13,12 +13,15 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build Docker image
         run: docker build -t ecommerce-app .
+
       - name: Run Docker container
-        run: docker run -d --name ecommerce-app-container ecommerce-app
+        run: docker run -d --name my_django_app ecommerce-app
+
       - name: Run tests
-        run: docker exec ecommerce-app-container python tests.py
+        run: docker exec my_django_app sh -c "cd store && python tests.py"
+
       - name: Stop and remove container
         if: ${{ always() }}
         run: |
-          docker stop ecommerce-app-container
-          docker rm ecommerce-app-container
+          docker stop my_django_app
+          docker rm my_django_app
