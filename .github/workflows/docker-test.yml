@@ -9,16 +9,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    container: python:3.8
     steps:
-      - uses: actions/checkout@v3
-      - name: Build Docker image
-        run: docker build -t ecommerce-app .
-
+      - uses: actions/checkout@v2
       - name: Run tests
-        run: docker run --name container-name my_django_app
-
-      - name: Stop and remove container
-        if: ${{ always() }}
         run: |
-          docker stop container-name
-          docker rm container-name
+          pip install -r requirements.txt
+          python manage.py test
