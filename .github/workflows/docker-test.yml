@@ -14,11 +14,8 @@ jobs:
       - name: Build Docker image
         run: docker build -t ecommerce-app .
 
-      - name: Run Docker container
-        run: docker run -d --name my_django_app ecommerce-app
-
       - name: Run tests
-        run: docker exec my_django_app sh -c "cd store && python tests.py"
+        run: docker run ecommerce-app
 
       - name: Stop and remove container
         if: ${{ always() }}
