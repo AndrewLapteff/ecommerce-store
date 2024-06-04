@@ -20,5 +20,5 @@ jobs:
       - name: Stop and remove container
         if: ${{ always() }}
         run: |
-          docker stop my_django_app
-          docker rm my_django_app
+          docker stop ecommerce-app
+          docker rm ecommerce-app
