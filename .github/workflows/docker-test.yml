@@ -15,10 +15,10 @@ jobs:
         run: docker build -t ecommerce-app .
 
       - name: Run tests
-        run: docker run ecommerce-app
+        run: docker run --name container-name my_django_app
 
       - name: Stop and remove container
         if: ${{ always() }}
         run: |
-          docker stop ecommerce-app
-          docker rm ecommerce-app
+          docker stop container-name
+          docker rm container-name
